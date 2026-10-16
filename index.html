@@ -1,133 +1,391 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GyanSpark Academy | Official Portal</title>
-<link rel="stylesheet" href="style.css?v=2">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,600;1,800&display=swap" rel="stylesheet" />
+  
+  <style>
+    :root {
+      --lavender-base: #e6ddfa;
+      --dusty-rose: #f5d5df;
+      --card-bg: rgba(13, 20, 36, 0.94);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --card-inner: #17233f;
+      --text-white: #ffffff;
+      --text-muted: #94a3b8;
+      --brand-blue: #3b82f6;
+      --brand-blue-hover: #2563eb;
+      --accent-gold: #f59e0b;
+      --success-green: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #dfd2f7 0%, #f7d6e0 50%, #d4e2f9 100%);
+      background-size: 300% 300%;
+      animation: ambientShift 12s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px 16px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    @keyframes ambientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .ambient-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+    .orb-1 { width: 340px; height: 340px; background: #c084fc; top: -50px; left: -50px; }
+    .orb-2 { width: 320px; height: 320px; background: #f472b6; bottom: -60px; right: -60px; }
+
+    .main-container {
+      width: 100%;
+      max-width: 840px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .portal-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 38px 32px;
+      box-shadow: 0 25px 60px rgba(15, 23, 42, 0.35);
+      backdrop-filter: blur(20px);
+      color: var(--text-white);
+      transition: all 0.4s ease;
+    }
+
+    .hello-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 56px;
+      font-weight: 800;
+      font-style: italic;
+      background: linear-gradient(135deg, #ffffff 30%, #fbcfe8 70%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .mentor-welcome-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 6px;
+    }
+
+    .welcome-subtext {
+      font-size: 14.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .custom-input {
+      width: 100%;
+      background: var(--card-inner);
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 15px;
+      color: var(--text-white);
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .custom-input:focus {
+      border-color: var(--brand-blue);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+    }
+
+    .class-pills-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+      gap: 10px;
+    }
+
+    .class-pill {
+      background: var(--card-inner);
+      border: 1px solid #334155;
+      padding: 12px 8px;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #94a3b8;
+      transition: all 0.25s ease;
+      user-select: none;
+    }
+
+    .class-pill:hover {
+      border-color: #64748b;
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .class-pill.selected {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border-color: #60a5fa;
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    .primary-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 14px;
+      padding: 16px 24px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+      margin-top: 10px;
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.55);
+    }
+
+    .secondary-btn {
+      background: #334155;
+      color: #ffffff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .secondary-btn:hover { background: #475569; }
+
+    .architect-badge {
+      margin-top: 28px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: #cbd5e1;
+      text-align: center;
+    }
+
+    .architect-badge span {
+      color: var(--accent-gold);
+      font-weight: 700;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .category-card {
+      background: var(--card-inner);
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 22px 18px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .category-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--brand-blue);
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+    }
+
+    .cat-icon { font-size: 32px; margin-bottom: 12px; }
+    .cat-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .cat-desc { font-size: 12.5px; color: var(--text-muted); line-height: 1.45; }
+
+    .level-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .level-badge-active {
+      background: rgba(37, 99, 235, 0.25);
+      border: 1px solid #3b82f6;
+      color: #93c5fd;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .levels-track-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 8px 0 18px 0;
+      margin-bottom: 20px;
+    }
+
+    .level-node {
+      min-width: 64px;
+      padding: 10px;
+      border-radius: 12px;
+      background: #090e1a;
+      border: 1px solid #334155;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #64748b;
+      cursor: pointer;
+    }
+
+    .level-node.unlocked {
+      background: var(--card-inner);
+      border-color: var(--brand-blue);
+      color: #ffffff;
+    }
+
+    .level-node.active-level {
+      border-color: var(--accent-gold);
+      background: #231c07;
+      color: var(--accent-gold);
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.35);
+    }
+
+    .quiz-box {
+      background: #090e1a;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 22px;
+    }
+
+    .quiz-question {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    .options-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .option-btn {
+      background: var(--card-inner);
+      border: 1px solid #334155;
+      color: #ffffff;
+      padding: 14px 18px;
+      border-radius: 12px;
+      text-align: left;
+      font-size: 14.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .option-btn:hover {
+      border-color: var(--brand-blue);
+      background: #1e293b;
+    }
+
+    .option-btn.correct {
+      background: #064e3b !important;
+      border-color: var(--success-green) !important;
+    }
+
+    .option-btn.wrong {
+      background: #7f1d1d !important;
+      border-color: #ef4444 !important;
+    }
+
+    .feedback-banner {
+      margin-top: 16px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      display: none;
+    }
+
+    .cert-frame {
+      border: 4px double var(--accent-gold);
+      border-radius: 16px;
+      padding: 28px;
+      text-align: center;
+      background: radial-gradient(circle at center, #111a2f 0%, #070c17 100%);
+      margin-top: 16px;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Floating Simulated WhatsApp Message Notification -->
-  <div id="waNotification" class="wa-notification">
-    <div class="wa-header">
-      <div class="wa-sender-info">
-        <span class="wa-badge">WhatsApp</span>
-        <strong id="waSenderTitle">Ujjwal Upadhyay (GyanSpark)</strong>
-      </div>
-      <span class="wa-time">Just now</span>
-    </div>
-    <div class="wa-body" id="waMessageText">
-      <!-- Text will appear via JS -->
-    </div>
-  </div>
+  <div class="ambient-orb orb-1"></div>
+  <div class="ambient-orb orb-2"></div>
 
-  <div class="portal-wrapper">
-    <!-- Top Branding Header -->
-    <header class="main-branding">
-      <div class="lead-badge">⚡ Lead Systems Architect: <b>Ujjwal Upadhyay</b> | BCA (AI)</div>
-      <h1 class="brand-title">GyanSpark Academy</h1>
-      <p class="brand-tagline">Class 5th–10th Conceptual Foundation & Competitive Olympiad Track</p>
-    </header>
+  <div class="main-container">
 
-    <!-- Stage 1: Phone Login Box -->
-    <div id="loginCard" class="card-box">
-      <div class="card-tag">Official Candidate Access</div>
-      <h2>Secure Portal Login</h2>
-      <p class="card-subtext">Enter your mobile number to receive your direct WhatsApp access code.</p>
+    <!-- SCREEN 1: WELCOME SCREEN -->
+    <div id="screenWelcome" class="portal-card">
+      <div class="hello-text">Hello!</div>
+      <div class="mentor-welcome-title">This side Ujjwal Upadhyay welcoming you to this platform!</div>
+      <p class="welcome-subtext">Step in to enhance your learning journey, master core mathematical concepts, and unlock your true competitive potential.</p>
 
-      <div class="input-field-group">
-        <label for="phoneNumber">Mobile Number</label>
-        <div class="phone-input-row">
-          <span class="country-prefix">+91</span>
-          <input type="tel" id="phoneNumber" maxlength="10" placeholder="Enter 10-digit number" />
-        </div>
+      <div class="form-group">
+        <label for="studentNameInput">Please Enter Your Full Name</label>
+        <input type="text" id="studentNameInput" class="custom-input" placeholder="e.g. Aarav Sharma, Rohan..." autocomplete="off" />
       </div>
 
-      <button id="sendOtpBtn" class="action-btn" onclick="sendOtpCode()">Send Access Code →</button>
-      
-      <!-- OTP Input Area (Hidden initially) -->
-      <div id="otpSection" class="otp-sub-section" style="display: none;">
-        <label>Enter 4-Digit Security Code</label>
-        <div class="otp-box-row">
-          <input type="text" maxlength="1" class="otp-digit" id="otp1" oninput="focusNext(this, 'otp2')" />
-          <input type="text" maxlength="1" class="otp-digit" id="otp2" oninput="focusNext(this, 'otp3')" />
-          <input type="text" maxlength="1" class="otp-digit" id="otp3" oninput="focusNext(this, 'otp4')" />
-          <input type="text" maxlength="1" class="otp-digit" id="otp4" />
-        </div>
-        <button class="action-btn verify-btn" onclick="verifyOtpCode()">Verify & Proceed →</button>
-      </div>
-    </div>
-
-    <!-- Stage 2: Welcome & Math Mastery Blueprint (Hidden initially) -->
-    <div id="onboardingCard" class="card-box" style="display: none;">
-      <div class="card-tag">Candidate Profile & Goal Engine</div>
-      <h2>Welcome to GyanSpark Academy</h2>
-      <p class="card-subtext">Let's configure your learning track and build rock-solid mathematical mastery.</p>
-
-      <div class="form-grid">
-        <div class="input-field-group">
-          <label for="studentName">Student Full Name</label>
-          <input type="text" id="studentName" placeholder="e.g. Akku, Anshika..." />
-        </div>
-
-        <div class="input-field-group">
-          <label for="targetGoal">Select Target Ambition</label>
-          <select id="targetGoal">
-            <option value="NDA & Defence Math Foundation">⚔️ NDA & Defence Math Foundation</option>
-            <option value="JEE Advanced Analytical Track">🎯 JEE Analytical Track</option>
-            <option value="Olympiad & Mental Calculation Champ">🏆 Olympiad Prodigy & Speed Calc</option>
-            <option value="School Board Topper (Zero-to-Hero)">💡 School Board Topper (100% Concept)</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Math Strong Blueprint Rules -->
-      <div class="math-blueprint-container">
-        <h3>⚡ Mentor's Blueprint: How to Build Rock-Solid Math</h3>
-        <div class="rules-grid">
-          <div class="rule-card">
-            <div class="rule-num">01</div>
-            <h4>Never Calculate in Mind</h4>
-            <p>Dimag concepts sochne ke liye hai, calculation ke liye rough sheet ya digital slate use karo.</p>
-          </div>
-          <div class="rule-card">
-            <div class="rule-num">02</div>
-            <h4>Error Log Strategy</h4>
-            <p>Har silly mistake ko note karo taaki same galti exam test paper mein repeat na ho.</p>
-          </div>
-          <div class="rule-card">
-            <div class="rule-num">03</div>
-            <h4>Concept $\rightarrow$ Derivation $\rightarrow$ Speed</h4>
-            <p>Pehle concept samjho, fir formula banao, speed tricks apne aap develop ho jayengi.</p>
-          </div>
-          <div class="rule-card">
-            <div class="rule-num">04</div>
-            <h4>20-Min Daily Muscle Memory</h4>
-            <p>Rozana sirf 20 minute dedicated problem solving beats last-night cramming.</p>
-          </div>
-        </div>
-      </div>
-
-      <button class="action-btn start-btn" onclick="finishOnboarding()">Enter Academy Dashboard →</button>
-    </div>
-
-    <!-- Stage 3: Simple Workspace Ready Placeholder -->
-    <div id="academyWorkspace" class="card-box" style="display: none;">
-      <div class="card-tag success-tag">Access Granted</div>
-      <h2 id="welcomeGreeting">Candidate Active</h2>
-      <p id="candidateProfileDetail" class="card-subtext"></p>
-      <div class="workspace-banner">
-        🎉 Phase 1 Verified! Onboarding & Entry Interface Ready for Next Modules.
-      </div>
-    </div>
-  </div>
-
-  <script src="app.js"></script>
-</body>
-</html>
-<div class="class-pill" onclick="selectClass(7, this)">Class 7th</div>
+      <div class="form-group">
+        <label>Select Your Class</label>
+        <div class="class-pills-row">
+          <div class="class-pill selected" onclick="selectClass(5, this)">Class 5th</div>
+          <div class="class-pill" onclick="selectClass(6, this)">Class 6th</div>
+          <div class="class-pill" onclick="selectClass(7, this)">Class 7th</div>
           <div class="class-pill" onclick="selectClass(8, this)">Class 8th</div>
           <div class="class-pill" onclick="selectClass(9, this)">Class 9th</div>
           <div class="class-pill" onclick="selectClass(10, this)">Class 10th</div>
@@ -136,13 +394,12 @@
 
       <button class="primary-btn" onclick="startJourney()">Begin Your Quest →</button>
 
-      <!-- Bottom Tag -->
       <div class="architect-badge">
-        ⚡ Designed & Architected by <span>Ujjwal Upadhyay</span> | Cloud Specialist & AI Architect
+        ⚡ Designed & Architected by <span>Ujjwal Upadhyay</span> | BCA (AI) | Cloud Specialist & AI Architect
       </div>
     </div>
 
-    <!-- ================= SCREEN 2: CATEGORIES DASHBOARD ================= -->
+    <!-- SCREEN 2: CATEGORIES DASHBOARD -->
     <div id="screenCategories" class="portal-card" style="display: none;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
         <span id="userBadge" style="background: rgba(37, 99, 235, 0.2); border: 1px solid #3b82f6; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; color: #93c5fd;"></span>
@@ -153,42 +410,36 @@
       <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Master each arena step-by-step or enter the 10-Level Math Engine.</p>
 
       <div class="categories-grid">
-        <!-- 1. Math Level Engine -->
         <div class="category-card" onclick="openMathLevels()">
           <div class="cat-icon">📐</div>
           <div class="cat-title">Mathematics (Level 1–10)</div>
           <div class="cat-desc">Progressive locked levels. Clear each test to unlock the next and claim your official certificate.</div>
         </div>
 
-        <!-- 2. Science Lab -->
         <div class="category-card" onclick="openCategoryInfo('science')">
           <div class="cat-icon">🔬</div>
           <div class="cat-title">Science Concept Lab</div>
           <div class="cat-desc">Curiosity-driven core principles, everyday physics, and visual chemistry experiments.</div>
         </div>
 
-        <!-- 3. Competition Exam Track -->
         <div class="category-card" onclick="openCategoryInfo('competition')">
           <div class="cat-icon">⚔️</div>
           <div class="cat-title">Competitive Exam Track</div>
           <div class="cat-desc">Olympiad, NDA Foundation, and speed aptitude challenges designed for future leaders.</div>
         </div>
 
-        <!-- 4. How to Make Math Strong -->
         <div class="category-card" onclick="openCategoryInfo('math-strong')">
           <div class="cat-icon">💡</div>
           <div class="cat-title">How to Build Rock-Solid Math</div>
           <div class="cat-desc">Mentor's 4 cardinal rules: rough slate usage, error logs, and muscle memory drills.</div>
         </div>
 
-        <!-- 5. General Knowledge & Facts -->
         <div class="category-card" onclick="openCategoryInfo('facts')">
           <div class="cat-icon">🧠</div>
           <div class="cat-title">GK & Mind-Bending Facts</div>
           <div class="cat-desc">Fascinating cosmic numbers, historical milestones, and scientific wonders.</div>
         </div>
 
-        <!-- 6. Current Affairs -->
         <div class="category-card" onclick="openCategoryInfo('current-affairs')">
           <div class="cat-icon">📰</div>
           <div class="cat-title">Current Affairs & Innovations</div>
@@ -197,7 +448,7 @@
       </div>
     </div>
 
-    <!-- ================= SCREEN 3: 10-LEVEL MATH ENGINE ================= -->
+    <!-- SCREEN 3: 10-LEVEL MATH ENGINE -->
     <div id="screenMathEngine" class="portal-card" style="display: none;">
       <div class="level-header">
         <div>
@@ -207,10 +458,8 @@
         <div id="currentLevelBadge" class="level-badge-active">Level 1 Active</div>
       </div>
 
-      <!-- 10 Level Nodes Track -->
       <div class="levels-track-bar" id="levelsTrack"></div>
 
-      <!-- Quiz Card Area -->
       <div class="quiz-box">
         <div id="questionNumber" style="font-size: 13px; font-weight: 700; color: #60a5fa; margin-bottom: 6px;">CHALLENGE 1/1</div>
         <div id="quizQuestion" class="quiz-question">Loading challenge...</div>
@@ -221,14 +470,14 @@
       <button id="nextLevelBtn" class="primary-btn" style="display: none;" onclick="advanceLevel()">Claim Milestone & Unlock Next Level →</button>
     </div>
 
-    <!-- ================= SCREEN 4: CONTENT INFO VIEW (For Science, Facts, etc.) ================= -->
+    <!-- SCREEN 4: CONTENT INFO VIEW -->
     <div id="screenInfoView" class="portal-card" style="display: none;">
       <button class="secondary-btn" onclick="backToCategories()" style="margin-bottom: 16px;">← Back to Hub</button>
       <h2 id="infoTitle" style="font-size: 24px; font-weight: 800; margin-bottom: 8px;"></h2>
       <div id="infoBody" style="font-size: 14.5px; line-height: 1.7; color: #cbd5e1;"></div>
     </div>
 
-    <!-- ================= SCREEN 5: OFFICIAL CERTIFICATE ================= -->
+    <!-- SCREEN 5: OFFICIAL CERTIFICATE -->
     <div id="screenCertificate" class="portal-card" style="display: none;">
       <div class="cert-frame">
         <div style="font-size: 12px; letter-spacing: 2px; color: var(--accent-gold); font-weight: 800; text-transform: uppercase;">Official Master Credential</div>
@@ -257,7 +506,6 @@
   </div>
 
   <script>
-    // State Store
     let currentUser = {
       name: "",
       classNum: 5,
@@ -265,19 +513,18 @@
       currentActiveLevel: 1
     };
 
-    // Math Questions for 10 Progressive Levels (Class 5-8 Adaptive Core)
     const mathLevelsData = [
       {
         level: 1,
-        title: "Arithmetic Speed & Mental Alignment",
+        title: "Arithmetic Speed & Alignment",
         q: "What is the value of 48 ÷ (6 × 2) + 15?",
         options: ["19", "31", "17", "21"],
         correct: 0,
-        explanation: "Follow BODMAS: First parentheses (6 × 2 = 12), then division (48 ÷ 12 = 4), then addition (4 + 15 = 19)."
+        explanation: "BODMAS: First parentheses (6 × 2 = 12), then division (48 ÷ 12 = 4), then addition (4 + 15 = 19)."
       },
       {
         level: 2,
-        title: "Fraction & Proportions",
+        title: "Fractions & Proportions",
         q: "If 3/4 of a number is 36, what is 1/2 of that number?",
         options: ["24", "18", "32", "48"],
         correct: 0,
@@ -285,19 +532,19 @@
       },
       {
         level: 3,
-        title: "Prime Factorization & Divisibility",
+        title: "Prime Numbers & Factors",
         q: "Which of the following is the smallest 3-digit prime number?",
         options: ["101", "103", "107", "109"],
         correct: 0,
-        explanation: "101 cannot be divided by 2, 3, 5, or 7. It is the smallest 3-digit prime."
+        explanation: "101 has no factors other than 1 and itself."
       },
       {
         level: 4,
-        title: "Geometric Logic & Perimeters",
-        q: "A square garden has an area of 144 sq meters. What is the length of fence needed around it?",
+        title: "Geometric Area & Perimeter",
+        q: "A square garden has an area of 144 sq meters. What length of fencing is needed around it?",
         options: ["48 m", "36 m", "52 m", "24 m"],
         correct: 0,
-        explanation: "Side of square = √144 = 12 m. Perimeter = 4 × 12 = 48 m."
+        explanation: "Side = √144 = 12 m. Perimeter = 4 × 12 = 48 m."
       },
       {
         level: 5,
@@ -305,11 +552,11 @@
         q: "If 15 pens cost ₹180, what is the cost of 25 such pens?",
         options: ["₹300", "₹275", "₹320", "₹250"],
         correct: 0,
-        explanation: "Cost of 1 pen = 180 ÷ 15 = ₹12. Cost of 25 pens = 25 × 12 = ₹300."
+        explanation: "1 pen = 180 ÷ 15 = ₹12. 25 pens = 25 × 12 = ₹300."
       },
       {
         level: 6,
-        title: "Linear Equations Foundation",
+        title: "Linear Equations",
         q: "Solve for x: 3x - 7 = 2x + 8",
         options: ["15", "1", "14", "-15"],
         correct: 0,
@@ -325,7 +572,7 @@
       },
       {
         level: 8,
-        title: "Powers, Roots & Exponents",
+        title: "Powers & Exponents",
         q: "Evaluate: (2^5 × 2^3) ÷ 2^6",
         options: ["4", "8", "2", "16"],
         correct: 0,
@@ -333,4 +580,77 @@
       },
       {
         level: 9,
-        title: "Algebraic Identities & Fact
+        title: "Algebraic Identities",
+        q: "If a + b = 9 and ab = 20, what is the value of a² + b²?",
+        options: ["41", "61", "81", "21"],
+        correct: 0,
+        explanation: "(a + b)² = a² + b² + 2ab => 81 = a² + b² + 40 => a² + b² = 41."
+      },
+      {
+        level: 10,
+        title: "The Ultimate Olympiad Challenge",
+        q: "The sum of three consecutive odd integers is 111. What is the largest of these integers?",
+        options: ["39", "37", "41", "35"],
+        correct: 0,
+        explanation: "x + (x+2) + (x+4) = 111 => 3x + 6 = 111 => 3x = 105 => x = 35. Largest = 35 + 4 = 39."
+      }
+    ];
+
+    const infoData = {
+      "science": {
+        title: "🔬 Science Concept Lab",
+        html: `<p>• <b>Visual Physics:</b> Understand Newton's Third Law with action and reaction forces.</p>
+               <p style='margin-top:10px;'>• <b>Chemistry Wonders:</b> Water is the Universal Solvent due to its polar dipole structure (H₂O).</p>
+               <p style='margin-top:10px;'>• <b>Core Insight:</b> Never memorize definitions without visualizing the physical process!</p>`
+      },
+      "competition": {
+        title: "⚔️ Competitive Exam Track (Olympiad & NDA)",
+        html: `<p>• <b>Speed Aptitude:</b> Learn digital root tricks to verify large calculations quickly.</p>
+               <p style='margin-top:10px;'>• <b>NDA Analytical Foundation:</b> Build intuition for vectors, coordinates, and trigonometry.</p>
+               <p style='margin-top:10px;'>• <b>Daily Habit:</b> Solve 3 non-routine analytical problems every morning.</p>`
+      },
+      "math-strong": {
+        title: "💡 Mentor's Blueprint: How to Build Rock-Solid Math",
+        html: `<p>1. <b>Never Calculate Purely in Mind:</b> Use rough slates/paper to avoid unforced analytical errors.</p>
+               <p style='margin-top:10px;'>2. <b>Silly Mistake Log:</b> Maintain a red logbook of recurring calculation slips.</p>
+               <p style='margin-top:10px;'>3. <b>Concept First:</b> Learn the derivation before relying on shortcuts.</p>
+               <p style='margin-top:10px;'>4. <b>20-Minute Focus Drills:</b> Consistent daily drills build mathematical muscle memory.</p>`
+      },
+      "facts": {
+        title: "🧠 General Knowledge & Cosmic Numbers",
+        html: `<p>• <b>Kaprekar's Constant (6174):</b> Take any 4-digit number with distinct digits. Arrange descending and ascending, then subtract. Within 7 steps, you will always hit 6174!</p>
+               <p style='margin-top:10px;'>• <b>Speed of Light:</b> Sunlight reaches Earth in approximately 8 minutes and 20 seconds.</p>`
+      },
+      "current-affairs": {
+        title: "📰 Current Affairs & Tech Breakthroughs",
+        html: `<p>• <b>Space & Defense:</b> ISRO's expanding deep-space initiatives and defense aviation innovations.</p>
+               <p style='margin-top:10px;'>• <b>Cloud & AI Systems:</b> Large-scale neural computing and distributed architectures driving modern science.</p>`
+      }
+    };
+
+    function selectClass(num, el) {
+      currentUser.classNum = num;
+      document.querySelectorAll(".class-pill").forEach(p => p.classList.remove("selected"));
+      el.classList.add("selected");
+    }
+
+    function startJourney() {
+      const name = document.getElementById("studentNameInput").value.trim();
+      if (!name) {
+        alert("Please enter your name to proceed.");
+        return;
+      }
+      currentUser.name = name;
+      document.getElementById("userBadge").innerText = `Candidate: ${currentUser.name} | Class ${currentUser.classNum}th`;
+      document.getElementById("screenWelcome").style.display = "none";
+      document.getElementById("screenCategories").style.display = "block";
+    }
+
+    function backToWelcome() {
+      document.getElementById("screenCategories").style.display = "none";
+      document.getElementById("screenWelcome").style.display = "block";
+    }
+
+    function backToCategories() {
+      document.getElementById("screenMathEngine").style.display = "none";
+      document.getElementById("screenInfoView").style.display = "
