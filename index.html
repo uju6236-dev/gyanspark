@@ -3,65 +3,126 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GyanSpark Academy | Core Engine</title>
+  <title>GyanSpark Academy | Official Portal</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- Top Hero & Creator Branding -->
-  <header>
-    <div class="creator-badge">⚡ Lead Systems Architect: <b>Ujjwal Upadhyay | BCA (AI)</b></div>
-    <h1>GyanSpark Academy</h1>
-    <p>Class 5th to 10th Foundation & Olympiad Mastery Engine</p>
-  </header>
-
-  <main class="main-container">
-    
-    <!-- Class Grade Selector Tabs -->
-    <div class="tab-row">
-      <button class="tab-btn active" onclick="switchClass('class5_6')">Class 5th - 6th (Visual Math)</button>
-      <button class="tab-btn" onclick="switchClass('class7_8')">Class 7th - 8th (Logic & Science)</button>
-      <button class="tab-btn" onclick="switchClass('class9_10')">Class 9th - 10th (Competition)</button>
+  <!-- Floating Simulated WhatsApp Message Notification -->
+  <div id="waNotification" class="wa-notification">
+    <div class="wa-header">
+      <div class="wa-sender-info">
+        <span class="wa-badge">WhatsApp</span>
+        <strong id="waSenderTitle">Ujjwal Upadhyay (GyanSpark)</strong>
+      </div>
+      <span class="wa-time">Just now</span>
     </div>
+    <div class="wa-body" id="waMessageText">
+      <!-- Text will appear via JS -->
+    </div>
+  </div>
 
-    <!-- Live Challenge Arena -->
-    <div class="arena-card">
-      <div class="meta-row">
-        <span class="topic-tag" id="q-topic">Loading Topic...</span>
-        <span class="score-tag">XP: <b id="xp-val">0</b></span>
-      </div>
+  <div class="portal-wrapper">
+    <!-- Top Branding Header -->
+    <header class="main-branding">
+      <div class="lead-badge">⚡ Lead Systems Architect: <b>Ujjwal Upadhyay</b> | BCA (AI)</div>
+      <h1 class="brand-title">GyanSpark Academy</h1>
+      <p class="brand-tagline">Class 5th–10th Conceptual Foundation & Competitive Olympiad Track</p>
+    </header>
 
-      <h2 class="question-text" id="q-text">Sawal load ho raha hai...</h2>
+    <!-- Stage 1: Phone Login Box -->
+    <div id="loginCard" class="card-box">
+      <div class="card-tag">Official Candidate Access</div>
+      <h2>Secure Portal Login</h2>
+      <p class="card-subtext">Enter your mobile number to receive your direct WhatsApp access code.</p>
 
-      <!-- Multiple Choice Options -->
-      <div class="options-grid" id="options-box"></div>
-
-      <!-- Diagnostic & Step-by-Step Solution -->
-      <div class="solution-panel" id="sol-panel">
-        <div class="sol-title">💡 Step-by-Step Solution & Diagnostic:</div>
-        <p id="sol-text"></p>
-      </div>
-
-      <!-- In-built Digital Rough Slate -->
-      <div class="slate-container">
-        <div class="slate-bar">
-          <span>✍️ Digital Rough Slate (Calculation karein)</span>
-          <button class="btn-clear" onclick="clearSlate()">Clear Slate</button>
+      <div class="input-field-group">
+        <label for="phoneNumber">Mobile Number</label>
+        <div class="phone-input-row">
+          <span class="country-prefix">+91</span>
+          <input type="tel" id="phoneNumber" maxlength="10" placeholder="Enter 10-digit number" />
         </div>
-        <canvas id="roughSlate"></canvas>
       </div>
 
-      <!-- Action Buttons -->
-      <div class="action-bar">
-        <button class="btn-next" onclick="loadNextQuestion()">Next Challenge →</button>
+      <button id="sendOtpBtn" class="action-btn" onclick="sendOtpCode()">Send Access Code →</button>
+      
+      <!-- OTP Input Area (Hidden initially) -->
+      <div id="otpSection" class="otp-sub-section" style="display: none;">
+        <label>Enter 4-Digit Security Code</label>
+        <div class="otp-box-row">
+          <input type="text" maxlength="1" class="otp-digit" id="otp1" oninput="focusNext(this, 'otp2')" />
+          <input type="text" maxlength="1" class="otp-digit" id="otp2" oninput="focusNext(this, 'otp3')" />
+          <input type="text" maxlength="1" class="otp-digit" id="otp3" oninput="focusNext(this, 'otp4')" />
+          <input type="text" maxlength="1" class="otp-digit" id="otp4" />
+        </div>
+        <button class="action-btn verify-btn" onclick="verifyOtpCode()">Verify & Proceed →</button>
       </div>
     </div>
 
-  </main>
+    <!-- Stage 2: Welcome & Math Mastery Blueprint (Hidden initially) -->
+    <div id="onboardingCard" class="card-box" style="display: none;">
+      <div class="card-tag">Candidate Profile & Goal Engine</div>
+      <h2>Welcome to GyanSpark Academy</h2>
+      <p class="card-subtext">Let's configure your learning track and build rock-solid mathematical mastery.</p>
 
-  <footer>
-    Engineered with focus by <b>Ujjwal Upadhyay</b> | BCA (AI) • GyanSpark
-  </footer>
+      <div class="form-grid">
+        <div class="input-field-group">
+          <label for="studentName">Student Full Name</label>
+          <input type="text" id="studentName" placeholder="e.g. Akku, Anshika..." />
+        </div>
+
+        <div class="input-field-group">
+          <label for="targetGoal">Select Target Ambition</label>
+          <select id="targetGoal">
+            <option value="NDA & Defence Math Foundation">⚔️ NDA & Defence Math Foundation</option>
+            <option value="JEE Advanced Analytical Track">🎯 JEE Analytical Track</option>
+            <option value="Olympiad & Mental Calculation Champ">🏆 Olympiad Prodigy & Speed Calc</option>
+            <option value="School Board Topper (Zero-to-Hero)">💡 School Board Topper (100% Concept)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Math Strong Blueprint Rules -->
+      <div class="math-blueprint-container">
+        <h3>⚡ Mentor's Blueprint: How to Build Rock-Solid Math</h3>
+        <div class="rules-grid">
+          <div class="rule-card">
+            <div class="rule-num">01</div>
+            <h4>Never Calculate in Mind</h4>
+            <p>Dimag concepts sochne ke liye hai, calculation ke liye rough sheet ya digital slate use karo.</p>
+          </div>
+          <div class="rule-card">
+            <div class="rule-num">02</div>
+            <h4>Error Log Strategy</h4>
+            <p>Har silly mistake ko note karo taaki same galti exam test paper mein repeat na ho.</p>
+          </div>
+          <div class="rule-card">
+            <div class="rule-num">03</div>
+            <h4>Concept $\rightarrow$ Derivation $\rightarrow$ Speed</h4>
+            <p>Pehle concept samjho, fir formula banao, speed tricks apne aap develop ho jayengi.</p>
+          </div>
+          <div class="rule-card">
+            <div class="rule-num">04</div>
+            <h4>20-Min Daily Muscle Memory</h4>
+            <p>Rozana sirf 20 minute dedicated problem solving beats last-night cramming.</p>
+          </div>
+        </div>
+      </div>
+
+      <button class="action-btn start-btn" onclick="finishOnboarding()">Enter Academy Dashboard →</button>
+    </div>
+
+    <!-- Stage 3: Simple Workspace Ready Placeholder -->
+    <div id="academyWorkspace" class="card-box" style="display: none;">
+      <div class="card-tag success-tag">Access Granted</div>
+      <h2 id="welcomeGreeting">Candidate Active</h2>
+      <p id="candidateProfileDetail" class="card-subtext"></p>
+      <div class="workspace-banner">
+        🎉 Phase 1 Verified! Onboarding & Entry Interface Ready for Next Modules.
+      </div>
+    </div>
+  </div>
 
   <script src="app.js"></script>
 </body>
