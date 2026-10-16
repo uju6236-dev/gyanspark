@@ -127,3 +127,210 @@
   <script src="app.js"></script>
 </body>
 </html>
+<div class="class-pill" onclick="selectClass(7, this)">Class 7th</div>
+          <div class="class-pill" onclick="selectClass(8, this)">Class 8th</div>
+          <div class="class-pill" onclick="selectClass(9, this)">Class 9th</div>
+          <div class="class-pill" onclick="selectClass(10, this)">Class 10th</div>
+        </div>
+      </div>
+
+      <button class="primary-btn" onclick="startJourney()">Begin Your Quest →</button>
+
+      <!-- Bottom Tag -->
+      <div class="architect-badge">
+        ⚡ Designed & Architected by <span>Ujjwal Upadhyay</span> | Cloud Specialist & AI Architect
+      </div>
+    </div>
+
+    <!-- ================= SCREEN 2: CATEGORIES DASHBOARD ================= -->
+    <div id="screenCategories" class="portal-card" style="display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <span id="userBadge" style="background: rgba(37, 99, 235, 0.2); border: 1px solid #3b82f6; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; color: #93c5fd;"></span>
+        <button class="secondary-btn" onclick="backToWelcome()">← Change Profile</button>
+      </div>
+
+      <h2 style="font-size: 26px; font-weight: 800; margin-top: 12px;">Choose Your Knowledge Domain</h2>
+      <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Master each arena step-by-step or enter the 10-Level Math Engine.</p>
+
+      <div class="categories-grid">
+        <!-- 1. Math Level Engine -->
+        <div class="category-card" onclick="openMathLevels()">
+          <div class="cat-icon">📐</div>
+          <div class="cat-title">Mathematics (Level 1–10)</div>
+          <div class="cat-desc">Progressive locked levels. Clear each test to unlock the next and claim your official certificate.</div>
+        </div>
+
+        <!-- 2. Science Lab -->
+        <div class="category-card" onclick="openCategoryInfo('science')">
+          <div class="cat-icon">🔬</div>
+          <div class="cat-title">Science Concept Lab</div>
+          <div class="cat-desc">Curiosity-driven core principles, everyday physics, and visual chemistry experiments.</div>
+        </div>
+
+        <!-- 3. Competition Exam Track -->
+        <div class="category-card" onclick="openCategoryInfo('competition')">
+          <div class="cat-icon">⚔️</div>
+          <div class="cat-title">Competitive Exam Track</div>
+          <div class="cat-desc">Olympiad, NDA Foundation, and speed aptitude challenges designed for future leaders.</div>
+        </div>
+
+        <!-- 4. How to Make Math Strong -->
+        <div class="category-card" onclick="openCategoryInfo('math-strong')">
+          <div class="cat-icon">💡</div>
+          <div class="cat-title">How to Build Rock-Solid Math</div>
+          <div class="cat-desc">Mentor's 4 cardinal rules: rough slate usage, error logs, and muscle memory drills.</div>
+        </div>
+
+        <!-- 5. General Knowledge & Facts -->
+        <div class="category-card" onclick="openCategoryInfo('facts')">
+          <div class="cat-icon">🧠</div>
+          <div class="cat-title">GK & Mind-Bending Facts</div>
+          <div class="cat-desc">Fascinating cosmic numbers, historical milestones, and scientific wonders.</div>
+        </div>
+
+        <!-- 6. Current Affairs -->
+        <div class="category-card" onclick="openCategoryInfo('current-affairs')">
+          <div class="cat-icon">📰</div>
+          <div class="cat-title">Current Affairs & Innovations</div>
+          <div class="cat-desc">Stay ahead with recent global tech discoveries, defense news, and space missions.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= SCREEN 3: 10-LEVEL MATH ENGINE ================= -->
+    <div id="screenMathEngine" class="portal-card" style="display: none;">
+      <div class="level-header">
+        <div>
+          <button class="secondary-btn" onclick="backToCategories()" style="margin-bottom: 6px;">← Back to Hub</button>
+          <h2 style="font-size: 22px; font-weight: 800;">Mathematics Progression Engine</h2>
+        </div>
+        <div id="currentLevelBadge" class="level-badge-active">Level 1 Active</div>
+      </div>
+
+      <!-- 10 Level Nodes Track -->
+      <div class="levels-track-bar" id="levelsTrack"></div>
+
+      <!-- Quiz Card Area -->
+      <div class="quiz-box">
+        <div id="questionNumber" style="font-size: 13px; font-weight: 700; color: #60a5fa; margin-bottom: 6px;">CHALLENGE 1/1</div>
+        <div id="quizQuestion" class="quiz-question">Loading challenge...</div>
+        <div id="optionsContainer" class="options-grid"></div>
+        <div id="feedbackBanner" class="feedback-banner"></div>
+      </div>
+
+      <button id="nextLevelBtn" class="primary-btn" style="display: none;" onclick="advanceLevel()">Claim Milestone & Unlock Next Level →</button>
+    </div>
+
+    <!-- ================= SCREEN 4: CONTENT INFO VIEW (For Science, Facts, etc.) ================= -->
+    <div id="screenInfoView" class="portal-card" style="display: none;">
+      <button class="secondary-btn" onclick="backToCategories()" style="margin-bottom: 16px;">← Back to Hub</button>
+      <h2 id="infoTitle" style="font-size: 24px; font-weight: 800; margin-bottom: 8px;"></h2>
+      <div id="infoBody" style="font-size: 14.5px; line-height: 1.7; color: #cbd5e1;"></div>
+    </div>
+
+    <!-- ================= SCREEN 5: OFFICIAL CERTIFICATE ================= -->
+    <div id="screenCertificate" class="portal-card" style="display: none;">
+      <div class="cert-frame">
+        <div style="font-size: 12px; letter-spacing: 2px; color: var(--accent-gold); font-weight: 800; text-transform: uppercase;">Official Master Credential</div>
+        <h1 style="font-family: 'Playfair Display', serif; font-size: 34px; color: #ffffff; margin: 12px 0 6px 0;">Certificate of Mathematical Mastery</h1>
+        <p style="font-size: 13px; color: #94a3b8;">This certifies that candidate</p>
+        <h2 id="certStudentName" style="font-size: 28px; color: #60a5fa; margin: 8px 0; font-weight: 800;">Candidate Name</h2>
+        <p style="font-size: 14px; color: #cbd5e1; max-width: 520px; margin: 0 auto 16px auto; line-height: 1.5;">
+          has successfully conquered all 10 Progressive Analytical Levels of the GyanSpark Foundation Track with exceptional accuracy.
+        </p>
+
+        <div style="border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 16px; display: flex; justify-content: space-around; font-size: 12px; color: #94a3b8;">
+          <div>
+            <div style="color: #ffffff; font-weight: 700;">GyanSpark Academy</div>
+            <div>Autonomous Learning Track</div>
+          </div>
+          <div>
+            <div style="color: var(--accent-gold); font-weight: 700;">Ujjwal Upadhyay</div>
+            <div>Cloud Specialist & Lead Architect</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="primary-btn" style="margin-top: 20px;" onclick="backToCategories()">Return to Academic Hub</button>
+    </div>
+
+  </div>
+
+  <script>
+    // State Store
+    let currentUser = {
+      name: "",
+      classNum: 5,
+      highestUnlockedLevel: 1,
+      currentActiveLevel: 1
+    };
+
+    // Math Questions for 10 Progressive Levels (Class 5-8 Adaptive Core)
+    const mathLevelsData = [
+      {
+        level: 1,
+        title: "Arithmetic Speed & Mental Alignment",
+        q: "What is the value of 48 ÷ (6 × 2) + 15?",
+        options: ["19", "31", "17", "21"],
+        correct: 0,
+        explanation: "Follow BODMAS: First parentheses (6 × 2 = 12), then division (48 ÷ 12 = 4), then addition (4 + 15 = 19)."
+      },
+      {
+        level: 2,
+        title: "Fraction & Proportions",
+        q: "If 3/4 of a number is 36, what is 1/2 of that number?",
+        options: ["24", "18", "32", "48"],
+        correct: 0,
+        explanation: "Number = (36 × 4) ÷ 3 = 48. Half of 48 is 24."
+      },
+      {
+        level: 3,
+        title: "Prime Factorization & Divisibility",
+        q: "Which of the following is the smallest 3-digit prime number?",
+        options: ["101", "103", "107", "109"],
+        correct: 0,
+        explanation: "101 cannot be divided by 2, 3, 5, or 7. It is the smallest 3-digit prime."
+      },
+      {
+        level: 4,
+        title: "Geometric Logic & Perimeters",
+        q: "A square garden has an area of 144 sq meters. What is the length of fence needed around it?",
+        options: ["48 m", "36 m", "52 m", "24 m"],
+        correct: 0,
+        explanation: "Side of square = √144 = 12 m. Perimeter = 4 × 12 = 48 m."
+      },
+      {
+        level: 5,
+        title: "Percentages & Unitary Method",
+        q: "If 15 pens cost ₹180, what is the cost of 25 such pens?",
+        options: ["₹300", "₹275", "₹320", "₹250"],
+        correct: 0,
+        explanation: "Cost of 1 pen = 180 ÷ 15 = ₹12. Cost of 25 pens = 25 × 12 = ₹300."
+      },
+      {
+        level: 6,
+        title: "Linear Equations Foundation",
+        q: "Solve for x: 3x - 7 = 2x + 8",
+        options: ["15", "1", "14", "-15"],
+        correct: 0,
+        explanation: "3x - 2x = 8 + 7 => x = 15."
+      },
+      {
+        level: 7,
+        title: "Speed, Distance & Time",
+        q: "A train moves at 72 km/h. How many meters does it cover in 15 seconds?",
+        options: ["300 m", "250 m", "360 m", "200 m"],
+        correct: 0,
+        explanation: "72 km/h = 72 × (5/18) = 20 m/s. In 15 seconds: 20 × 15 = 300 meters."
+      },
+      {
+        level: 8,
+        title: "Powers, Roots & Exponents",
+        q: "Evaluate: (2^5 × 2^3) ÷ 2^6",
+        options: ["4", "8", "2", "16"],
+        correct: 0,
+        explanation: "2^(5+3) = 2^8. 2^8 ÷ 2^6 = 2^(8-6) = 2^2 = 4."
+      },
+      {
+        level: 9,
+        title: "Algebraic Identities & Fact
