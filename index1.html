@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GyanSpark Academy | Core Engine</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Hero & Creator Branding -->
+  <header>
+    <div class="creator-badge">⚡ Lead Systems Architect: <b>Ujjwal Upadhyay | BCA (AI)</b></div>
+    <h1>GyanSpark Academy</h1>
+    <p>Class 5th to 10th Foundation & Olympiad Mastery Engine</p>
+  </header>
+
+  <main class="main-container">
+    
+    <!-- Class Grade Selector Tabs -->
+    <div class="tab-row">
+      <button class="tab-btn active" onclick="switchClass('class5_6')">Class 5th - 6th (Visual Math)</button>
+      <button class="tab-btn" onclick="switchClass('class7_8')">Class 7th - 8th (Logic & Science)</button>
+      <button class="tab-btn" onclick="switchClass('class9_10')">Class 9th - 10th (Competition)</button>
+    </div>
+
+    <!-- Live Challenge Arena -->
+    <div class="arena-card">
+      <div class="meta-row">
+        <span class="topic-tag" id="q-topic">Loading Topic...</span>
+        <span class="score-tag">XP: <b id="xp-val">0</b></span>
+      </div>
+
+      <h2 class="question-text" id="q-text">Sawal load ho raha hai...</h2>
+
+      <!-- Multiple Choice Options -->
+      <div class="options-grid" id="options-box"></div>
+
+      <!-- Diagnostic & Step-by-Step Solution -->
+      <div class="solution-panel" id="sol-panel">
+        <div class="sol-title">💡 Step-by-Step Solution & Diagnostic:</div>
+        <p id="sol-text"></p>
+      </div>
+
+      <!-- In-built Digital Rough Slate -->
+      <div class="slate-container">
+        <div class="slate-bar">
+          <span>✍️ Digital Rough Slate (Calculation karein)</span>
+          <button class="btn-clear" onclick="clearSlate()">Clear Slate</button>
+        </div>
+        <canvas id="roughSlate"></canvas>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-bar">
+        <button class="btn-next" onclick="loadNextQuestion()">Next Challenge →</button>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    Engineered with focus by <b>Ujjwal Upadhyay</b> | BCA (AI) • GyanSpark
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
